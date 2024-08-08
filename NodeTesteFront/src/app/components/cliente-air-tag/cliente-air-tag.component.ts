@@ -34,8 +34,8 @@ export class ClienteAirTagComponent implements OnInit {
     this.carregarAirTagsDisponiveis()
   }
 
-  public obterCalculoValorLocacao(clienteAirTag: clienteAirTagModel) {
-    var dataFimCalculo = new Date()
+public obterQuantidadeMinutos(clienteAirTag: clienteAirTagModel): number{
+  var dataFimCalculo = new Date()
     if (clienteAirTag.DataFimLocacao)
       dataFimCalculo = new Date(clienteAirTag.DataFimLocacao)
 
@@ -44,7 +44,11 @@ export class ClienteAirTagComponent implements OnInit {
     var diferencaEntreDatas = Math.abs(dataFimCalculo.getTime() - dataInicioCalculo.getTime())
     var diferencaMinutos = diferencaEntreDatas / (1000 * 60)
 
-    return "R$ " + (diferencaMinutos * 0.52).toFixed(2)
+    return diferencaMinutos
+}
+
+  public obterCalculoValorLocacao(clienteAirTag: clienteAirTagModel) {
+    return "R$ " + (this.obterQuantidadeMinutos(clienteAirTag) * 0.52).toFixed(2)
   }
 
   public formatarData(data: Date | null): string {

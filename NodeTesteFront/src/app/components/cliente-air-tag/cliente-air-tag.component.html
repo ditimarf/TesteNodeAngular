@@ -50,6 +50,7 @@
                 <th>Descrição</th>
                 <th>Data Locação</th>
                 <th>Data Entrega</th>
+                <th>Qtd. Minutos</th>
                 <th>Status</th>
                 <th>Valor R$</th>
                 <th>Ações</th>
@@ -62,6 +63,7 @@
                 <td>{{ c.AliasTag}}</td>
                 <td>{{formatarData(c.DataInicioLocacao)}}</td>
                 <td>{{formatarData(c.DataFimLocacao)}}</td>
+                <td style="text-align: center;">{{obterQuantidadeMinutos(c).toFixed(2)}}</td>
                 <td [ngStyle]="{'color': c.DataFimLocacao?'red': 'green'}">{{c.DataFimLocacao?"Inativa" : "Ativa"}}</td>
                 <td>{{obterCalculoValorLocacao(c)}}</td>
                 <td>
