@@ -1,0 +1,73 @@
+<div class="divPrincipal">
+    <div class="form-group" class="divDados">
+        <h2>Cliente Air Tag</h2>
+            <div class="row">
+                <div class="col-2">
+                    <label>Código:</label>
+                    <input [disabled]="true" class="form-control" type="text" [(ngModel)]="cliente.Codigo">
+                </div>
+                
+                <div class="col-4">
+                    <label>Cliente:</label>
+                    <input [disabled]="true" class="form-control" type="text" [(ngModel)]="cliente.Nome">
+                </div>
+
+                <div class="col-4">
+                    <label>E-Mail:</label>
+                    <input [disabled]="true" class="form-control" type="text" [(ngModel)]="cliente.Email">
+                </div>
+                <div *ngIf="!inserindoNovaTag" class="col-2" style="display: flex; flex-direction: column; justify-content: flex-end;">
+                    <button class="btn btn-success" (click)="inserindoNovaTag = !inserindoNovaTag">Add Air Tag</button>
+                </div>
+            </div>
+
+            <div *ngIf="inserindoNovaTag" class="row">
+                <div class="col-4">
+                    <label>AirTag: </label>
+                   <select [disabled]="airTagsDisponiveis.length <= 0" class="form-control" [(ngModel)]="codigoTagNovaLocacao">
+                    <option value="0">{{airTagsDisponiveis.length > 0 ? "Selecione uma Air Tag" : "Não há AirTags Disponíveis para a Locação"}}</option>
+                    <option *ngFor="let tag of airTagsDisponiveis" value="{{tag.Codigo}}">{{tag.MAC}}</option>
+                   </select>
+                </div>
+                <div class="col-4">
+                    <label>Alias: </label>
+                    <input [(ngModel)]="aliasNovaLocacao" [disabled]="airTagsDisponiveis.length <= 0" class="form-control" type="text">
+                </div>
+                <div class="col-2" style="display: flex; flex-direction: column; justify-content: flex-end;">
+                    <button class="btn btn-secondary" (click)="limparCamposLocacao()">Cancelar</button>
+                </div>
+                <div *ngIf="airTagsDisponiveis.length > 0" class="col-2" style="display: flex; flex-direction: column; justify-content: flex-end;">
+                    <button class="btn btn-success" (click)="locarNovaAirTag()">Locar Air Tag</button>
+                </div>
+            </div>
+    </div>
+
+    <table class="table" style="margin-top: 25px;">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Mac</th>
+                <th>Descrição</th>
+                <th>Data Locação</th>
+                <th>Data Entrega</th>
+                <th>Status</th>
+                <th>Valor R$</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let c of clienteAirTag">
+                <td>{{ c.Codigo}}</td>
+                <td>{{ c.MAC}}</td>
+                <td>{{ c.AliasTag}}</td>
+                <td>{{formatarData(c.DataInicioLocacao)}}</td>
+                <td>{{formatarData(c.DataFimLocacao)}}</td>
+                <td [ngStyle]="{'color': c.DataFimLocacao?'red': 'green'}">{{c.DataFimLocacao?"Inativa" : "Ativa"}}</td>
+                <td>{{obterCalculoValorLocacao(c)}}</td>
+                <td>
+                    <button [disabled]="c.DataFimLocacao" class="btn btn-warning" (click)="devolverTag(c.Codigo)">Devolver</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

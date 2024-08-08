@@ -1,0 +1,15 @@
+.divPrincipal{
+    margin: 50px; 
+    background-color: white; 
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.divDados{
+    background-color: whitesmoke;
+    margin-top: 25px; 
+    border: 1px solid transparent; 
+    padding: 10px; 
+    border-radius: 6px;
+}

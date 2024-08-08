@@ -1,0 +1,45 @@
+<div class="divPrincipal">
+    <div class="form-group" class="divDados">
+        <h2>Tags</h2>
+        <form (ngSubmit)="addTag()">
+            <div class="row">
+                <div class="col-1">
+                    <label for="codigo">Código:</label>
+                    <input [disabled]="true" class="form-control" type="number" id="codigo" [(ngModel)]="tag.Codigo" name="codigo"
+                        required>
+                </div>
+
+                <div class="col-5">
+                    <label for="nome">Mac:</label>
+                    <input class="form-control" type="text" id="mac" [(ngModel)]="tag.MAC" name="mac" required>
+                </div>
+
+                <div class="col-2" style="display: flex; align-items: end;">
+                    <button class="btn btn-success" type="submit">{{ isEditing ? 'Atualizar' :'Adicionar'}}</button>
+                    <button *ngIf="isEditing" class="btn btn-secondary" type="button" (click)="cancelEdition()">Cancelar</button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <table class="table" style="margin-top: 25px;">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>MAC</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let t of tags">
+                <td>{{ t.Codigo }}</td>
+                <td>{{ t.MAC }}</td>
+                <td>
+                    <button class="btn btn-warning" (click)="editTag(t)">Editar</button>
+                    <button class="btn btn-danger" (click)="deleteTag(t.Codigo)">Excluir</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
